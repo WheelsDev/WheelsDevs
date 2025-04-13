@@ -2,20 +2,20 @@ package Wheels;
 
 import java.util.Date;
 
-public class Alugar {
+public class Contrato {
     private Date dataInicial = null;
     private Cliente cliente = null;
     private Bicicleta bicicleta = null;
-    private int numeroDeDias = 0;
+    private int numeroDias = 0;
     private int alugarID = 0;
 
     private static int contagemDeAlugueis = 001;
 
-    public Alugar(Date sData, int numDias, Bicicleta bicicletaParaAlugar, Cliente client){
-        dataInicial = sData;
-        numeroDeDias = numDias;
-        cliente = client;
-        bicicleta = bicicletaParaAlugar;
+    public Contrato(Date data, Cliente cliente, Bicicleta bicicleta, int numDias){
+        dataInicial = data;
+        numeroDias = numDias;
+        this.cliente = cliente;
+        this.bicicleta = bicicleta;
         alugarID = contagemDeAlugueis++;
     }
 
@@ -28,7 +28,7 @@ public class Alugar {
     }
 
     public int getNumeroDeDias(){
-        return numeroDeDias;
+        return numeroDias;
     }
 
     public Date getDataInicial(){

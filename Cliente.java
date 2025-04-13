@@ -7,13 +7,14 @@ public class Cliente {
     private int telefone = 0;
     private int clienteID = 0;
 
-    private static int contagemDeClientes = 001;
+    private static int contadorCliente = 001;
 
-    public Cliente(String cnome, String pendereco, int tel){
+    public Cliente(String nome, String endereco, int telefone){
         //setar membros das variáveis
-        nome = cnome;
-        endereco = pendereco;
-        telefone = contagemDeClientes++;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        contadorCliente++;
     }
 
     public int getClienteID(){
@@ -27,4 +28,9 @@ public class Cliente {
     public String getEndereco(){
         return endereco;
     }
+
+    public int getTelefone(){
+        return telefone;
+    }
+
 }
