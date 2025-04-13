@@ -2,22 +2,22 @@ package Wheels;
 
 public class Main {
     public static void main(String[] args) {
-        /* this little program will run through the methods on issueBikeUI
-         *calling each in turn, like a user with a front end would do. */
-        //first, create the UI
-        IssueBikeUI ui = new IssueBikeUI();
+        /* esse pequeno programa irá rodar de acordo com os métodos em "EmitirBicicletaUI"
+        * chamando cada um em turno, igual um usuário com um Front end deveria fazer. */
+        //primerio, cria-se a UI(User Interface//PT-BR: Interface do Usuário)
+        EmitirBicicletaUI ui = new EmitirBicicletaUI();
 
-        //1. Show details for chosen bike
-        ui.showBikeDetails(100);
+        //1. Mostra os detalhes para a bicicleta escolhida
+        ui.mostrarDetalhesBicicleta(100);
 
-        //2. calculate cost os hiring this bike for 5 days
-        ui.calculateCost(5);
+        //2. Calcula o custo para o aluguel dessa bicicleta por 5 dias
+        ui.calcularCusto(5);
 
-        //3.create new Customer, payment and hire
-        ui.createCustomer("Les Hargreaves", "PW2 6TR", 1462501339);
+        //3.Cria um novo cliente, aluguel e pagamento
+        ui.criarCliente("Les Hargreaves", "PW2 6TR", 1462501339);
 
-        //4. calculate the total cost
-        ui.calculateTotalPayment();
+        //4. Calcula o custo total final
+        ui.calcularPagamentoTotal();
     }
 
 }
