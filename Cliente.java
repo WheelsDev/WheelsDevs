@@ -26,6 +26,13 @@ public class Cliente {
         this.telefone = telefone;
         this.email = email;
     }
+    public Cliente(int id, String nome, String endereco, String telefone, String email){
+        clienteID = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
+    }
 
     public int getClienteID(){
         return clienteID;
@@ -45,6 +52,14 @@ public class Cliente {
 
     public String getEmail() {
         return email;
+    }
+
+    public void exibirDetalhes() {
+        System.out.println("Identificador do Cliente: " + clienteID);
+        System.out.println("Nome: " + nome);
+        System.out.println("Endereço: " + endereco);
+        System.out.println("Telefone: " + telefone);
+        System.out.println("E-mail: " + email);
     }
 
     @Override

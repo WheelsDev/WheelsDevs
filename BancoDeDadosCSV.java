@@ -106,9 +106,8 @@ public class BancoDeDadosCSV {
 
     public void salvarCliente(Cliente cliente) {
         try {
-            Path caminhoDiretorio = Paths.get("BancoDeDados","Clientes.csv");
-            OutputStream escreverArquivo = Files.newOutputStream(caminhoDiretorio, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-            InputStream lerArquivo = Files.newInputStream(caminhoDiretorio);
+            OutputStream escreverArquivo = Files.newOutputStream(caminhoDiretorioCliente, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
+            InputStream lerArquivo = Files.newInputStream(caminhoDiretorioCliente);
             if (lerArquivo.read() == -1) {
                 escreverArquivo.write("ClienteID,Nome,Endereco,Telefone,Email".getBytes());
             }
@@ -119,6 +118,71 @@ public class BancoDeDadosCSV {
         }
 
     }
+    private boolean verificarArquivoCliente() {
+        System.out.println("\nVerificando Arquivo...");
+        try {
+            InputStream inputStream = Files.newInputStream(caminhoDiretorioCliente);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+    private void lerArquivoCliente() {
+        try {
+            String linha;
+            InputStream inputStream = Files.newInputStream(caminhoDiretorioCliente);
+            InputStreamReader leitorArquivo = new InputStreamReader(inputStream);
+            BufferedReader lerArquivo = new BufferedReader(leitorArquivo);
+            linha = lerArquivo.readLine(); // Pular 1° linha
+            linha = lerArquivo.readLine();
+            String[] cliente;
+            Cliente clienteDoBanco;
+            while (linha != null) {
+                cliente = linha.split(",");
+                clienteDoBanco = new Cliente(Integer.parseInt(cliente[0]),cliente[1],cliente[2],cliente[3],cliente[4]);
+                listaClientes.add(clienteDoBanco);
+                linha = lerArquivo.readLine();
+            }
+        } catch (Exception ex) {
+        }
+    }
+    public void imprimirRelatorioCompletoClientes() {
+        if (verificarArquivoCliente()) {
+            lerArquivoCliente();
+            listaClientes.forEach(c -> {
+                System.out.println("Cliente de id: "+c.getClienteID()+" e nome: " + c.getNome());
+            });
+        } else {
+            System.out.println("Arquivo não encontrado. :(");
+        }
+    }
+    private int buscarCliente() {
+        Scanner leitor =  new Scanner(System.in);
+        System.out.print("\nProcurar Cliente pelo Identificador: ");
+        int identificadorCliente = leitor.nextInt();
+        return identificadorCliente;
+    }
+    public void buscarRelatorioCliente() {
+        HashMap<Integer,Cliente> listaIdClientes = new HashMap<>();
+        if (verificarArquivoCliente()) {
+            lerArquivoCliente();
+            int idCliente = buscarCliente();
+            listaClientes.forEach(c -> {
+                listaIdClientes.put(c.getClienteID(),c);
+            });
+            Cliente clienteProcurado = listaIdClientes.get(idCliente);
+            if (clienteProcurado != null) {
+                System.out.println("Cliente encontrado, carregando...");
+                clienteProcurado.exibirDetalhes();
+            } else {
+                System.out.println("Cliente não encontrado no sistema. :(");
+            }
+        } else {
+            System.out.println("Arquivo não encontrado. :(");
+        }
+    }
+
+
     public void salvarContrato(Contrato contrato) {
         try {
             Path caminhoDiretorio = Paths.get("BancoDeDados","Contratos.csv");
