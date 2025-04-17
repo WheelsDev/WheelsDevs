@@ -182,12 +182,10 @@ public class BancoDeDadosCSV {
         }
     }
 
-
     public void salvarContrato(Contrato contrato) {
         try {
-            Path caminhoDiretorio = Paths.get("BancoDeDados","Contratos.csv");
-            OutputStream escreverArquivo = Files.newOutputStream(caminhoDiretorio, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-            InputStream lerArquivo = Files.newInputStream(caminhoDiretorio);
+            OutputStream escreverArquivo = Files.newOutputStream(caminhoDiretorioContrato, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
+            InputStream lerArquivo = Files.newInputStream(caminhoDiretorioContrato);
             if (lerArquivo.read() == -1) {
                 escreverArquivo.write("Contrato ID,Cliente,Bicicleta,Data Inicial,Numero Dias,Data Retorno,Status Do Contrato".getBytes());
             }
@@ -198,6 +196,70 @@ public class BancoDeDadosCSV {
         }
 
     }
+    private boolean verificarArquivoContrato() {
+        System.out.println("\nVerificando Arquivo...");
+        try {
+            InputStream inputStream = Files.newInputStream(caminhoDiretorioContrato);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+    private void lerArquivoContrato() {
+        try {
+            String linha;
+            InputStream inputStream = Files.newInputStream(caminhoDiretorioContrato);
+            InputStreamReader leitorArquivo = new InputStreamReader(inputStream);
+            BufferedReader lerArquivo = new BufferedReader(leitorArquivo);
+            linha = lerArquivo.readLine(); // Pular 1° linha
+            linha = lerArquivo.readLine();
+            String[] contrato;
+            Contrato contratoDoBanco;
+            while (linha != null) {
+                contrato = linha.split(",");
+                contratoDoBanco = new Contrato(Integer.parseInt(contrato[0]),contrato[1],contrato[2],contrato[3],Integer.parseInt(contrato[4]),contrato[5],contrato[6]);
+                listaContratos.add(contratoDoBanco);
+                linha = lerArquivo.readLine();
+            }
+        } catch (Exception ex) {
+        }
+    }
+    public void imprimirRelatorioCompletoContratos() {
+        if (verificarArquivoContrato()) {
+            lerArquivoContrato();
+            listaContratos.forEach(c -> {
+                System.out.println("Contrato de id: "+c.getContratoID());
+            });
+        } else {
+            System.out.println("Arquivo não encontrado. :(");
+        }
+    }
+    private int buscarContrato() {
+        Scanner leitor =  new Scanner(System.in);
+        System.out.print("\nProcurar Contrato pelo Identificador: ");
+        int identificadorContrato = leitor.nextInt();
+        return identificadorContrato;
+    }
+    public void buscarRelatorioContrato() {
+        HashMap<Integer,Contrato> listaIdContratos = new HashMap<>();
+        if (verificarArquivoContrato()) {
+            lerArquivoContrato();
+            int idContrato = buscarContrato();
+            listaContratos.forEach(c -> {
+                listaIdContratos.put(c.getContratoID(),c);
+            });
+            Contrato contratoProcurado = listaIdContratos.get(idContrato);
+            if (contratoProcurado != null) {
+                System.out.println("Contrato encontrado, carregando...");
+                contratoProcurado.exibirDetalhes();
+            } else {
+                System.out.println("Contrato não encontrado no sistema. :(");
+            }
+        } else {
+            System.out.println("Arquivo não encontrado. :(");
+        }
+    }
+
     public void salvarPagamento(Pagamento pagamento) {
         try {
             Path caminhoDiretorio = Paths.get("BancoDeDados","Pagamentos.csv");

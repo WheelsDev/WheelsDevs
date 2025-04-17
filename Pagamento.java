@@ -20,7 +20,7 @@ public class Pagamento {
         //setar membros das variáveis
         this.pagamentoID = new Random().nextInt(1,10000);
         this.contrato = contrato;
-        this.valorTotal = contrato.getNumeroDeDias() * contrato.getBicicleta().diariaTaxaAluguel + contrato.getBicicleta().deposito;
+        this.valorTotal = contrato.getNumeroDias() * contrato.getBicicleta().diariaTaxaAluguel + contrato.getBicicleta().deposito;
         this.valorPago = pagarAluguel();
         this.pagamentoEmFalta = valorTotal - valorPago;
         this.dataPagamento = LocalDate.now();
@@ -44,8 +44,8 @@ public class Pagamento {
         System.out.println("Imprimindo comprovante para: '" + client + "' ......");
         System.out.println("Endereço: " + endereco + "\n");
 
-        System.out.println("Alugando Bicicleta de número '" + contrato.getBicicleta().getNumeroBicicleta() + "' para " + contrato.getNumeroDeDias() + " dias" + "\n");
-        contrato.getBicicleta().calcularCusto(contrato.getNumeroDeDias());
+        System.out.println("Alugando Bicicleta de número '" + contrato.getBicicleta().getNumeroBicicleta() + "' para " + contrato.getNumeroDias() + " dias" + "\n");
+        contrato.getBicicleta().calcularCusto(contrato.getNumeroDias());
     }
 
     @Override

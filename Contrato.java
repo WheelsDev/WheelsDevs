@@ -29,16 +29,52 @@ public class Contrato {
         status = StatusContrato.ATIVO;
     }
 
-    public Cliente getCliente(){
+    //Contrato ID,Cliente,Bicicleta,Data Inicial,Numero Dias,Data Retorno,Status Do Contrato
+    private String nomeCliente;
+    private String nomeBicicleta;
+    private String dataAluguelCSV;
+    private String dataRetornoCSV;
+    private String statusContrato;
+    public Contrato(int id, String cliente, String bicicleta,String dataParaAlugar, int numDiasAluguel,String dataRetorno,String statusContrato){
+        contratoID = id;
+        this.nomeCliente = cliente;
+        this.nomeBicicleta = bicicleta;
+        dataAluguelCSV = dataParaAlugar;
+        numeroDias = numDiasAluguel;
+        dataRetornoCSV = dataRetorno;
+        this.statusContrato = statusContrato;
+    }
+
+    public int getContratoID() {
+        return contratoID;
+    }
+
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public Bicicleta getBicicleta(){
+    public Bicicleta getBicicleta() {
         return bicicleta;
     }
 
-    public int getNumeroDeDias(){
+    public int getNumeroDias() {
         return numeroDias;
+    }
+
+    public double getDescontoAtraso() {
+        return descontoAtraso;
+    }
+
+    public double getDescontoDano() {
+        return descontoDano;
+    }
+
+    public StatusContrato getStatus() {
+        return status;
+    }
+
+    public LocalDate getDataRetorno() {
+        return dataRetorno;
     }
 
     public LocalDate getDataInicial(){
@@ -60,6 +96,16 @@ public class Contrato {
 
     public void finalizacaoDoContrato() {
         status = StatusContrato.FINALIZADO;
+    }
+
+    public void exibirDetalhes() {
+        System.out.println("Identificador do Contrato: " + contratoID);
+        System.out.println("Cliente: " + nomeCliente);
+        System.out.println("Bicicleta: " + nomeBicicleta);
+        System.out.println("Data do aluguel: " + dataAluguelCSV);
+        System.out.println("Números de dias de aluguel: " + numeroDias);
+        System.out.println("Data de retorno da bicicleta: " + dataRetornoCSV);
+        System.out.println("Status do Contrato: " + statusContrato);
     }
 
     @Override

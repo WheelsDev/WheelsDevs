@@ -9,8 +9,8 @@ public class Main {
         //primerio, instância-se a Classe AlugarBike
         //AlugarBike alugarBike = new AlugarBike();
         Cliente novoCliente = new Cliente("Richard","Rua oduvaldu Cozzi","21998228014");
-        //Bicicleta novaBicicleta = new Bicicleta("Bicicleta Anos 2000",15,5,"Volkswagem","Grande","Esportiva");
-        //Contrato novoContrato = new Contrato(novoCliente,novaBicicleta,LocalDate.now(),10);
+        Bicicleta novaBicicleta = new Bicicleta("Bicicleta Anos 2000",15,5,"Volkswagem","Grande","Esportiva");
+        Contrato novoContrato = new Contrato(novoCliente,novaBicicleta,LocalDate.now(),10);
         //Pagamento novoPagamento = new Pagamento(novoContrato);
 
         BancoDeDadosCSV metodosCSV = new BancoDeDadosCSV();
@@ -19,8 +19,8 @@ public class Main {
 //        metodosCSV.salvarContrato(novoContrato);
 //        metodosCSV.salvarPagamento(novoPagamento);
 
-        metodosCSV.imprimirRelatorioCompletoClientes();
-        metodosCSV.buscarRelatorioCliente();
+        metodosCSV.imprimirRelatorioCompletoContratos();
+        metodosCSV.buscarRelatorioContrato();
 
         //1. Mostra os detalhes para a bicicleta escolhida
         //alugarBike.exibirDetalhesBicicleta(100);
