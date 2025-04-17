@@ -64,7 +64,7 @@ public class Contrato {
 
     @Override
     public String toString() {
-        return "\n" + contratoID + "," + cliente + "," + bicicleta + "," + dataInicial.format(formatter) + "," + numeroDias + "," + dataRetorno.format(formatter)+","+status.toString();
+        return "\n" + contratoID + "," + cliente.getNome() + "," + bicicleta.getNome() + "," + dataInicial.format(formatter) + "," + numeroDias + "," + dataRetorno.format(formatter)+","+status.toString();
     }
 }
 

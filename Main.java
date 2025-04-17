@@ -12,6 +12,23 @@ public class Main {
         Bicicleta novaBicicleta = new Bicicleta("Bicicleta Anos 2000",15,5,"Volkswagem","Grande","Esportiva");
         Contrato novoContrato = new Contrato(novoCliente,novaBicicleta,LocalDate.now(),10);
         Pagamento novoPagamento = new Pagamento(novoContrato);
-    }
 
+        BancoDeDadosCSV salvarDados = new BancoDeDadosCSV();
+        salvarDados.salvarCliente(novoCliente);
+        salvarDados.salvarBicicleta(novaBicicleta);
+        salvarDados.salvarContrato(novoContrato);
+        salvarDados.salvarPagamento(novoPagamento);
+
+        //1. Mostra os detalhes para a bicicleta escolhida
+        //alugarBike.exibirDetalhesBicicleta(100);
+
+        //2. Calcula o custo para o aluguel dessa bicicleta por 5 dias
+        //alugarBike.calcularCusto(5);
+
+        //3.Cria um novo cliente, aluguel e pagamento
+        //alugarBike.criarCliente("Les Hargreaves", "PW2 6TR", 1462501339);
+
+        //4. Calcula o custo total final
+        //alugarBike.calcularPagamento();
+    }
 }

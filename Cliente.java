@@ -16,7 +16,7 @@ public class Cliente {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
-        this.email = email;
+        this.email = "não existente";
     }
     public Cliente(String nome, String endereco, String telefone, String email){
         //setar membros das variáveis
