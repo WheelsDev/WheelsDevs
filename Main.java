@@ -19,8 +19,8 @@ public class Main {
 //        metodosCSV.salvarContrato(novoContrato);
 //        metodosCSV.salvarPagamento(novoPagamento);
 
-        metodosCSV.imprimirRelatorioCompletoContratos();
-        metodosCSV.buscarRelatorioContrato();
+        metodosCSV.imprimirRelatorioCompletoPagamentos();
+        metodosCSV.buscarRelatorioPagamento();
 
         //1. Mostra os detalhes para a bicicleta escolhida
         //alugarBike.exibirDetalhesBicicleta(100);

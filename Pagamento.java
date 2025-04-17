@@ -26,10 +26,26 @@ public class Pagamento {
         this.dataPagamento = LocalDate.now();
     }
 
+    private String nomeClienteCSV;
+    private String dataPagamentoCSV;
+
+    public Pagamento(int pagamentoID,String nomeCliente,String dataPagamento,double valorTotal,double valorPago,double pagamentoEmFalta){
+        this.pagamentoID = pagamentoID;
+        this.nomeClienteCSV = nomeCliente;
+        this.dataPagamentoCSV = dataPagamento;
+        this.valorTotal = valorTotal;
+        this.valorPago = valorPago;
+        this.pagamentoEmFalta = pagamentoEmFalta;
+    }
+
+    public int getPagamentoID() {
+        return pagamentoID;
+    }
+
     private double pagarAluguel() {
         System.out.print("Coloque o valor do pagamento: ");
-        Scanner leitor = new Scanner(System.in);
-        return leitor.nextDouble();
+//        Scanner leitor = new Scanner(System.in);
+        return 100;
     }
 
     public void calcularPagamentoTotal(Contrato contrato){
@@ -46,6 +62,15 @@ public class Pagamento {
 
         System.out.println("Alugando Bicicleta de número '" + contrato.getBicicleta().getNumeroBicicleta() + "' para " + contrato.getNumeroDias() + " dias" + "\n");
         contrato.getBicicleta().calcularCusto(contrato.getNumeroDias());
+    }
+
+    public void exibirDetalhes() {
+        System.out.println("Identificador do Pagamento: " + pagamentoID);
+        System.out.println("Nome do Cliente: " + nomeClienteCSV);
+        System.out.println("Data do Pagamento: " + dataPagamentoCSV);
+        System.out.println("Valor Total: R$ " + valorTotal);
+        System.out.println("Valor pago pelo cliente: R$ " + valorPago);
+        System.out.println("Pagamento em falta: R$ " + pagamentoEmFalta);
     }
 
     @Override

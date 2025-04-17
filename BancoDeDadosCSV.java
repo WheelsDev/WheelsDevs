@@ -262,9 +262,8 @@ public class BancoDeDadosCSV {
 
     public void salvarPagamento(Pagamento pagamento) {
         try {
-            Path caminhoDiretorio = Paths.get("BancoDeDados","Pagamentos.csv");
-            OutputStream escreverArquivo = Files.newOutputStream(caminhoDiretorio, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-            InputStream lerArquivo = Files.newInputStream(caminhoDiretorio);
+            OutputStream escreverArquivo = Files.newOutputStream(caminhoDiretorioPagamento, StandardOpenOption.CREATE,StandardOpenOption.APPEND);
+            InputStream lerArquivo = Files.newInputStream(caminhoDiretorioPagamento);
             if (lerArquivo.read() == -1) {
                 escreverArquivo.write("Pagamento ID,Nome Cliente,Data Pagamento,Valor Total,Valor Pago,Pagamento Em Falta".getBytes());
             }
@@ -274,5 +273,68 @@ public class BancoDeDadosCSV {
             System.out.println("Erro ao encontrar o arquivo.");
         }
 
+    }
+    private boolean verificarArquivoPagamento() {
+        System.out.println("\nVerificando Arquivo...");
+        try {
+            InputStream inputStream = Files.newInputStream(caminhoDiretorioPagamento);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+    private void lerArquivoPagamento() {
+        try {
+            String linha;
+            InputStream inputStream = Files.newInputStream(caminhoDiretorioPagamento);
+            InputStreamReader leitorArquivo = new InputStreamReader(inputStream);
+            BufferedReader lerArquivo = new BufferedReader(leitorArquivo);
+            linha = lerArquivo.readLine(); // Pular 1° linha
+            linha = lerArquivo.readLine();
+            String[] pagamento;
+            Pagamento pagamentoDoBanco;
+            while (linha != null) {
+                pagamento = linha.split(",");
+                pagamentoDoBanco = new Pagamento(Integer.parseInt(pagamento[0]),pagamento[1],pagamento[2],Double.parseDouble(pagamento[3]),Double.parseDouble(pagamento[4]),Double.parseDouble(pagamento[5]));
+                listaPagamentos.add(pagamentoDoBanco);
+                linha = lerArquivo.readLine();
+            }
+        } catch (Exception ex) {
+        }
+    }
+    public void imprimirRelatorioCompletoPagamentos() {
+        if (verificarArquivoPagamento()) {
+            lerArquivoPagamento();
+            listaPagamentos.forEach(p -> {
+                System.out.println("Pagamento de id: "+p.getPagamentoID());
+            });
+        } else {
+            System.out.println("Arquivo não encontrado. :(");
+        }
+    }
+    private int buscarPagamento() {
+        Scanner leitor =  new Scanner(System.in);
+        System.out.print("\nProcurar Pagamento pelo Identificador: ");
+        int identificadorPagamento = leitor.nextInt();
+        return identificadorPagamento;
+    }
+    public void buscarRelatorioPagamento() {
+        HashMap<Integer,Pagamento> listaIdPagamentos = new HashMap<>();
+        if (verificarArquivoPagamento()) {
+            lerArquivoPagamento();
+            int idPagamento = buscarPagamento();
+            listaPagamentos.forEach(p -> {
+                listaIdPagamentos.put(p.getPagamentoID(),p);
+            });
+            Pagamento pagamentoProcurado = listaIdPagamentos.get(idPagamento);
+            if (pagamentoProcurado != null) {
+                System.out.println("Pagamento encontrado, carregando...");
+                pagamentoProcurado.exibirDetalhes();
+            } else {
+                System.out.println("Pagamento não encontrado no sistema. :(");
+            }
+        } else {
+            System.out.println("Arquivo não encontrado. :(");
+        }
     }
 }
