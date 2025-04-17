@@ -20,6 +20,7 @@ public class Main {
 //        metodosCSV.salvarPagamento(novoPagamento);
 
         metodosCSV.imprimirRelatorioCompletoBicicletas();
+        metodosCSV.buscarRelatorioBicicleta();
 
         //1. Mostra os detalhes para a bicicleta escolhida
         //alugarBike.exibirDetalhesBicicleta(100);

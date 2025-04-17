@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -73,6 +74,31 @@ public class BancoDeDadosCSV {
             listaBicicletas.forEach(b -> {
                 System.out.println("Bicicleta de id: "+b.getNumeroBicicleta()+" e nome: " + b.getNome());
             });
+        } else {
+            System.out.println("Arquivo não encontrado. :(");
+        }
+    }
+    private int buscarBicicleta() {
+        Scanner leitor =  new Scanner(System.in);
+        System.out.print("\nProcurar Bicicleta pelo Identificador: ");
+        int identificadorBicicleta = leitor.nextInt();
+        return identificadorBicicleta;
+    }
+    public void buscarRelatorioBicicleta() {
+        HashMap<Integer,Bicicleta> listaIdBicicletas = new HashMap<>();
+        if (verificarArquivoBicicleta()) {
+            lerArquivoBicicleta();
+            int idBicicleta = buscarBicicleta();
+            listaBicicletas.forEach(b -> {
+                listaIdBicicletas.put(b.getNumeroBicicleta(),b);
+            });
+            Bicicleta bicicletaProcurada = listaIdBicicletas.get(idBicicleta);
+            if (bicicletaProcurada != null) {
+                System.out.println("Bicicleta encontrada, carregando...");
+                bicicletaProcurada.exibirDetalhes();
+            } else {
+                System.out.println("Bicicleta não encontrada no sistema. :(");
+            }
         } else {
             System.out.println("Arquivo não encontrado. :(");
         }
