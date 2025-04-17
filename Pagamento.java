@@ -1,18 +1,35 @@
 package Wheels;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Pagamento {
     //criação do pagamento
-    private Cliente cliente = null;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    //criação do pagamento
+    private Contrato contrato;
     private int pagamentoID = 0;
-    private String moeda;
+    private double valorTotal = 0;
+    private double valorPago = 0;
+    private LocalDate dataPagamento = LocalDate.now();
+    private double pagamentoEmFalta = 0;
 
-    private static int contadorPagamentos = 001;
-
-    public Pagamento(Cliente cliente){
+    public Pagamento(Contrato contrato){
         //setar membros das variáveis
+        this.pagamentoID = new Random().nextInt(1,10000);
+        this.contrato = contrato;
+        this.valorTotal = contrato.getNumeroDeDias() * contrato.getBicicleta().diariaTaxaAluguel + contrato.getBicicleta().deposito;
+        this.valorPago = pagarAluguel();
+        this.pagamentoEmFalta = valorTotal - valorPago;
+        this.dataPagamento = LocalDate.now();
+    }
 
-        this.cliente = cliente;
-        pagamentoID = contadorPagamentos++;
+    private double pagarAluguel() {
+        System.out.print("Coloque o valor do pagamento: ");
+        Scanner leitor = new Scanner(System.in);
+        return leitor.nextDouble();
     }
 
     public void calcularPagamentoTotal(Contrato contrato){
@@ -29,5 +46,10 @@ public class Pagamento {
 
         System.out.println("Alugando Bicicleta de número '" + contrato.getBicicleta().getNumeroBicicleta() + "' para " + contrato.getNumeroDeDias() + " dias" + "\n");
         contrato.getBicicleta().calcularCusto(contrato.getNumeroDeDias());
+    }
+
+    @Override
+    public String toString() {
+        return "\n"+pagamentoID+","+contrato.getCliente().getNome()+","+dataPagamento.format(formatter) +","+valorTotal+","+valorPago+","+pagamentoEmFalta;
     }
 }
