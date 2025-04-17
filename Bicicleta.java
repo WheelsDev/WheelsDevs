@@ -15,9 +15,9 @@ public class Bicicleta {
     protected boolean disponibilidade = true;
 
     /*Esse bloco é executado quando a classe é carregada e é setada a loja de Bicicletas
-    *Ela arbitralmente tem os atributos: deposito, diariaTaxaAluguel e numeroBicicleta*/
+     *Ela arbitralmente tem os atributos: deposito, diariaTaxaAluguel e numeroBicicleta*/
 
-//    static{
+    //    static{
 //        int j = 0;
 //        for(int i = 10; i < 15; i++){
 //            Bicicleta b = new Bicicleta("Bicicleta anos 2000",i, i, (j*100));
@@ -25,7 +25,6 @@ public class Bicicleta {
 //            j++;
 //        }
 //    }
-
     public Bicicleta(String nome, double deposito, double diariaTaxaAluguel, String marca, String modelo, String tipo) {
         this.numeroBicicleta = new Random().nextInt(1,10000);
         this.nome = nome;
@@ -34,6 +33,17 @@ public class Bicicleta {
         this.marca = marca;
         this.modelo = modelo;
         this.tipo =  tipo;
+    }
+
+    public Bicicleta(int numeroBicicleta, String nome, String marca, String modelo,double deposito, String tipo,double diariaTaxaAluguel , boolean disponibilidade) {
+        this.numeroBicicleta = numeroBicicleta;
+        this.nome = nome;
+        this.deposito = deposito;
+        this.diariaTaxaAluguel = diariaTaxaAluguel;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.tipo =  tipo;
+        this.disponibilidade = disponibilidade;
     }
 
     public int getNumeroBicicleta() {
